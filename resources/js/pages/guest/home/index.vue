@@ -1,6 +1,6 @@
 <template>
     <div class="home">
-        Home page
+
     </div>
 </template>
 
@@ -9,13 +9,13 @@
         setup() {
             return {
 
-             }
+            }
         }
     }
 </script>
 
 <style lang="scss">
 .home {
-    
+
 }
 </style>

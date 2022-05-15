@@ -13,6 +13,7 @@
         "@babel/preset-env": "^7.10.2",
         "@babel/runtime": "^7.10.2",
         "@babel/runtime-corejs2": "^7.17.9",
+        "@formkit/vue": "^1.0.0-beta.8",
         "@vue/compiler-sfc": "^3.1.0-0",
         "axios": "^0.26.1",
         "babel-loader": "^8.1.0",

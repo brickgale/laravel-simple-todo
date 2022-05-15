@@ -13,4 +13,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PageController@home');
+Route::get('/{vue?}', 'PageController@handler')->where('vue', '.*');

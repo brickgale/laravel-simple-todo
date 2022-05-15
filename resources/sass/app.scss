@@ -1,0 +1,110 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap');
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Nunito', sans-serif;
+    font-size: 15px;
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    overflow-x: hidden;
+    overflow-y: auto;
+    margin: 0;
+    padding: 0;
+    color: #696969;
+}
+
+a {
+    color: rgba(0,0,0,.87);
+    text-decoration: none;
+}
+
+h1, h2, h3, h4, h5 {
+    font-weight: 400;
+    margin: 0;
+    line-height: 1.1;
+    margin-bottom: .5rem;
+    color: inherit;
+}
+
+[v-cloak], .hide {
+    display: none;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.img-responsive {
+    width: 100%;
+    max-width: 100%;
+}
+
+#app {
+    height: 100%;
+    width: 100%;
+}
+
+#app .app-container {
+    width: 100%;
+    position: relative;
+
+    .formkit-outer {
+        margin-bottom: 20px;
+        .formkit-label {
+            font-weight: 1.6em;
+        }
+        input.formkit-input {
+            width: 100%;
+            font-family: sans-serif;
+            background-color: #fff;
+            background-image: none;
+            background-clip: padding-box;
+            padding: 14px 12px;
+            border: 1px solid #dcdcdc;
+            font-size: 15px;
+        }
+    }
+    .formkit-messages {
+        padding-left: 0;
+        list-style: none;
+        margin: 0;
+        font-size: 13px;
+        color: #fe7575;
+    }
+
+    .btn {
+        position: relative;
+        border: 1px solid transparent;
+        user-select: none;
+        white-space: nowrap;
+        vertical-align: middle;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        color: #fff;
+        background: #696969;
+        cursor: pointer;
+        max-width: 100%;
+        margin: 0 auto;
+        padding: 15px;
+        font-size: 100%;
+        overflow: hidden;
+        width: 100%;
+
+        &:focus {
+            outline: none;
+        }
+
+        &[disabled] {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+    }
+}

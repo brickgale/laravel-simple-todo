@@ -10,7 +10,7 @@ class PageController extends Controller
      /**
      * Home.
      */
-    protected function home()
+    protected function handler()
     {
         return view('app');
     }
