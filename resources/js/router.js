@@ -6,6 +6,7 @@ const Home = () => import('@/pages/guest/home')
 const Login = () => import('@/pages/guest/login')
 const Register = () => import('@/pages/guest/register')
 const Dashboard = () => import('@/pages/user/dashboard')
+const Todo = () => import('@/pages/user/todo')
 
 const routes = [
 	{
@@ -30,7 +31,19 @@ const routes = [
 		meta: {
 			requiresAuth: true
 		}
-    }
+    },
+	{
+		path: '/todo/:id',
+		name: 'todo',
+		component: Todo,
+		meta: {
+			requiresAuth: true
+		}
+	},
+	{
+		path: '/:pathMatch(.*)*',
+		component: Home
+	}
 ];
 
 const router = createRouter({

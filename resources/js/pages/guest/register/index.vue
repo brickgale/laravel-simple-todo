@@ -53,10 +53,12 @@
 <script>
     import { ref } from 'vue'
     import { useStore } from 'vuex'
+    import { useRouter } from 'vue-router'
 
     export default {
         setup() {
             const store = useStore()
+            const router = useRouter()
             const form = ref(null)
             const submitted = ref(false)
             const formData = ref({})
@@ -69,7 +71,8 @@
             function callRegister(e) {
                 store.dispatch('auth/register', { params: formData.value })
                     .then(res => {
-                        console.log(res)
+                        store.commit('auth/setAuth', res)
+                        router.push({ name: 'dashboard' })
                     }, res => {
                         console.log(res)
                     })
@@ -87,10 +90,11 @@
 
 <style lang="scss">
 .register {
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
+    padding: 30px 0;
     .register-con {
         width: 100%;
         max-width: 500px;

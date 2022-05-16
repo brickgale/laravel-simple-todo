@@ -6,6 +6,7 @@ export default {
 	state: {
 		authenticated: false,
 		token: null,
+		user: null,
 	},
 	getters: {
 		isAuthenticated(state) {
@@ -14,6 +15,9 @@ export default {
 		token(state) {
 			return state.token
 		},
+		user(state) {
+			return state.user
+		}
 	},
 	mutations: {
 		setAuth(state, payload) {
@@ -25,6 +29,9 @@ export default {
 			axios.defaults.headers.common['Authorization'] = ''
 			state.authenticated = false
 			state.token = null
+		},
+		setUser(state, payload) {
+			state.user = payload
 		}
 	},
 	actions: {
@@ -35,7 +42,6 @@ export default {
 			return new Promise((resolve, reject) => {
 				authService.login(params).then(res => {
 					context.commit('setAuth', res)
-					context.dispatch('getUser')
 					resolve(res)
 				}, err => {
 					reject(err)
@@ -43,10 +49,10 @@ export default {
 			})
 		},
 		getUser(context) {
-			authService.getUser().then(response => {
-                console.log('get user: ', response)
-			}, response => {
-				console.log(response)
+			authService.getUser().then(res => {
+				context.commit('setUser', res.data)
+			}, err => {
+				console.log(err)
 			})
 		},
 		logout(context) {
