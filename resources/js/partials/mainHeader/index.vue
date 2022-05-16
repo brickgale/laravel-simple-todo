@@ -1,19 +1,47 @@
 <template>
     <header class="main-header">
         <ul class="link-con">
-            <li v-for="(nav, key) in navLinks" :key="key">
-                <router-link :to="{ name: nav.route }">
-                    {{ nav.label }}
-                </router-link>
-            </li>
+            <template v-if="!isAuthenticated">
+                <li v-for="(nav, key) in navLinks" :key="key">
+                    <router-link :to="{ name: nav.route }">
+                        {{ nav.label }}
+                    </router-link>
+                </li>
+            </template>
+            <template v-else>
+                <li>
+                    <a href="#" @click.prevent="logout">
+                        Logout
+                    </a>
+                </li>
+            </template>
         </ul>
-    </header>
+    </header>   
 </template>
 
 <script>
+import { computed } from 'vue'
+import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
+
 export default {
     setup() {
+        const store = useStore()
+        const router = useRouter()
+        const isAuthenticated = computed(() => store.getters['auth/isAuthenticated'])
+
+        function logout() {
+            store.dispatch('auth/logout')
+                .then(res => {
+                    router.push({ name: 'home' })
+                }, err => {
+                    console.log(err)
+                })
+        }
+
         return {
+            isAuthenticated,
+            logout,
             navLinks: [
                 { label: 'Home', route: 'home' },
                 { label: 'Register', route: 'register' },

@@ -5,6 +5,8 @@
                 type="form"
                 v-model="formData"
                 :actions="false"
+                @submit="callRegister"
+                ref="form"
             >
                 <h1 class="title">Register</h1>
                 <FormKit
@@ -27,19 +29,19 @@
                     label="Password"
                     validation="required|length:6|matches:/[^a-zA-Z]/"
                     :validation-messages="{
-                    matches: 'Please include at least one symbol',
+                        matches: 'Please include at least one symbol',
                     }"
                     placeholder="Password"
                 />
                 <FormKit
                     type="password"
-                    name="password_confirm"
+                    name="password_confirmation"
                     label="Confirm password"
                     placeholder="Confirm password"
-                    validation="required|confirm"
+                    validation="required|confirm:password"
                 />
                 <div class="btn-con">
-                    <button class="btn" @click="register">
+                    <button class="btn" @click.prevent="submitRegister">
                         Signup
                     </button>
                 </div>
@@ -50,19 +52,34 @@
 
 <script>
     import { ref } from 'vue'
+    import { useStore } from 'vuex'
 
     export default {
         setup() {
+            const store = useStore()
+            const form = ref(null)
             const submitted = ref(false)
             const formData = ref({})
 
-            function register() {
+            function submitRegister() {
+                const node = form.value.node
+                node.submit()
+            }
 
+            function callRegister(e) {
+                store.dispatch('auth/register', { params: formData.value })
+                    .then(res => {
+                        console.log(res)
+                    }, res => {
+                        console.log(res)
+                    })
             }
 
             return {
+                form,
                 formData,
-                register
+                submitRegister,
+                callRegister
             }
         }
     }

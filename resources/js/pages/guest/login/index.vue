@@ -5,6 +5,8 @@
                 type="form"
                 v-model="formData"
                 :actions="false"
+                @submit="callLogin"
+                ref="form"
             >
                 <h1 class="title">Login</h1>
                 <FormKit
@@ -18,14 +20,11 @@
                     type="password"
                     name="password"
                     label="Password"
-                    validation="required|length:6|matches:/[^a-zA-Z]/"
-                    :validation-messages="{
-                    matches: 'Please include at least one symbol',
-                    }"
+                    validation="required"
                     placeholder="Password"
                 />
                 <div class="btn-con">
-                    <button class="btn" @click="login">
+                    <button class="btn" @click.prevent="submitLogin">
                         Login
                     </button>
                 </div>
@@ -36,19 +35,39 @@
 
 <script>
     import { ref } from 'vue'
+    import { useStore } from 'vuex'
+    import { useRouter } from 'vue-router'
 
     export default {
         setup() {
+            const store = useStore()
+            const router = useRouter()
+            const form = ref(null)
             const submitted = ref(false)
             const formData = ref({})
 
-            function login() {
+            function submitLogin() {
+                const node = form.value.node
+                node.submit()
+            }
 
+            function callLogin() {
+                const node = form.value.node
+                store.dispatch('auth/login', { params: formData.value })
+                    .then(res => {
+                        router.push({ name: 'dashboard' })
+                    }, err => {
+                        node.setErrors([
+                            err.response.data.message
+                        ])
+                    })
             }
 
             return {
+                form,
                 formData,
-                login
+                submitLogin,
+                callLogin
             }
         }
     }

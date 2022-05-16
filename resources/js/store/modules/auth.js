@@ -21,17 +21,26 @@ export default {
 			state.token = payload.data.token
 			axios.defaults.headers.common['Authorization'] = 'Bearer '+ payload.data.token
 		},
+		removeAuth(state) {
+			axios.defaults.headers.common['Authorization'] = ''
+			state.authenticated = false
+			state.token = null
+		}
 	},
 	actions: {
-		register(context, {params}) {
+		register(context, { params }) {
 			return authService.register(params)
 		},
-		login(context, {params, successCb, errorCb}) {
-			authService.login(params).then(response => {
-				context.commit('setAuth', response)
-				context.dispatch('getUser')
-				if(typeof successCb == 'function') successCb(response)
-			}, errorCb)
+		login(context,  { params }) {
+			return new Promise((resolve, reject) => {
+				authService.login(params).then(res => {
+					context.commit('setAuth', res)
+					context.dispatch('getUser')
+					resolve(res)
+				}, err => {
+					reject(err)
+				})
+			})
 		},
 		getUser(context) {
 			authService.getUser().then(response => {
@@ -40,5 +49,15 @@ export default {
 				console.log(response)
 			})
 		},
+		logout(context) {
+			return new Promise((resolve, reject) => {
+				authService.logout().then(res => {
+					context.commit('removeAuth')
+					resolve(res)
+				}, err => {
+					reject(err)
+				})
+			})
+		}
 	}
 }

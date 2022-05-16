@@ -12,7 +12,7 @@ class AuthController extends Controller
 {
     public function register(Request $request) {
         $fields = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:users,name',
             'email' => 'required|string|unique:users,email',
             'password' => 'required|string|confirmed'
         ]);
@@ -45,7 +45,7 @@ class AuthController extends Controller
         // Check password
         if(!$user || !Hash::check($fields['password'], $user->password)) {
             return response([
-                'message' => 'Bad creds'
+                'message' => 'Invalid Credentials'
             ], 401);
         }
 
