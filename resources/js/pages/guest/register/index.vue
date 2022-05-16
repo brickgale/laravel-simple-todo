@@ -90,11 +90,6 @@
 
 <style lang="scss">
 .register {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 30px 0;
     .register-con {
         width: 100%;
         max-width: 500px;

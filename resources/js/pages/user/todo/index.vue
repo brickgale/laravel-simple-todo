@@ -1,8 +1,8 @@
 <template>
-    <div class="todo">
+    <div  v-if="todo.label" class="todo">
         <h1>Hello {{ user.name }}!</h1>
         <h3>Simple Todo List App</h3>
-        <div v-if="todo.label" class="edit-todo-con">
+        <div class="edit-todo-con">
             <div v-if="showSuccess" class="success-con">
                 Successfully Updated!
             </div>
@@ -100,19 +100,15 @@ export default {
 
 <style lang="scss">
 .todo {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding: 30px 0;
     .edit-todo-con {
         padding: 20px 30px;
         list-style: none;
         overflow-y: auto;
         overflow-x: hidden;
         display: flex;
-        justify-content: center;
+        justify-content: flex-start;
+        flex-direction: column;
         max-width: 360px;
         width: 100%;
         height: 550px;

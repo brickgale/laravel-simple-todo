@@ -79,12 +79,7 @@ export default {
 
 <style lang="scss">
 .dashboard {
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
     flex-direction: column;
-    padding: 30px 0;
     .todo-list {
         height: 400px;
         width: 100%;
